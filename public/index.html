@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="smait-core.css">
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
+
 :root {
   --accent1: #ff6a3d; /* primary accent */
   --accent2: #3b82f6; /* secondary accent */
@@ -70,18 +71,11 @@ header nav a:hover {
 /* =========================
    HERO
 ========================= */
-/* HERO SLIDESHOW */
 .hero {
   position: relative;
   width: 100%;
-  height: 100vh; /* fullscreen */
+  height: 100vh;
   overflow: hidden;
-}
-
-.hero-slides {
-  width: 100%;
-  height: 100%;
-  position: relative;
 }
 
 .hero-slide {
@@ -102,73 +96,6 @@ header nav a:hover {
 .hero-slide.active {
   opacity: 1;
 }
-
-.hero-overlay {
-  background: rgba(0, 0, 0, 0.4);
-  padding: 40px;
-  border-radius: 12px;
-  color: #fff;
-  text-align: center;
-}
-
-.hero-overlay h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-}
-
-.hero-overlay p {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-}
-
-/* SLIDE DOTS */
-.dots {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-  text-align: center;
-}
-
-.dots span {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  margin: 0 5px;
-  background: #fff;
-  border-radius: 50%;
-  opacity: 0.5;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.dots span.active {
-  opacity: 1;
-  transform: scale(1.2);
-}
-
-/* EVENT CARDS WITH MINI IMAGES */
-.card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-  padding: 15px;
-  text-align: center;
-  transition: transform 0.3s ease;
-  position: relative;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.card .event-thumb {
-  width: 100%;
-  max-height: 120px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
 
 .hero-overlay {
   position: relative;
@@ -223,7 +150,6 @@ section.container {
   padding: 60px 20px;
 }
 
-/* Section headers */
 section h2 {
   font-size: 2rem;
   margin-bottom: 12px;
@@ -296,119 +222,7 @@ section p.text-muted {
 }
 
 /* =========================
-   VOLUNTEER BUTTON
-========================= */
-#volunteer .btn {
-  padding: 12px 24px;
-  background: var(--accent1);
-}
-
-#volunteer .btn:hover {
-  background: #ff875b;
-}
-
-/* =========================
-   DONATE SECTION
-========================= */
-#donate a.btn {
-  padding: 12px 24px;
-  background: var(--accent1);
-}
-
-#donate a.btn:hover {
-  background: #ff875b;
-}
-
-/
-/* =========================
-   CONTACT FORM MODAL
-========================= */
-.contact-modal-content,
-.registration-modal-content,
-.funding-modal-content {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  max-width: 850px;
-}
-
-.contact-modal-content .contact-left,
-.registration-modal-content .reg-left,
-.funding-modal-content .fund-left {
-  flex: 1;
-  min-width: 250px;
-  border-radius: 12px;
-  background-size: cover;
-  background-position: center;
-}
-
-.contact-modal-content .contact-right,
-.registration-modal-content .reg-right,
-.funding-modal-content .fund-right {
-  flex: 1;
-  min-width: 280px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px;
-}
-
-.contact-modal-content .avatar,
-.registration-modal-content .avatar {
-  width: 80px;
-  border-radius: 50%;
-  margin: 0 auto 20px;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-footer {
-  padding: 24px 20px;
-  background: rgba(0,0,0,0.05);
-  color: var(--dark);
-  font-size: 0.9rem;
-}
-
-footer .socials a {
-  color: var(--dark);
-  transition: color 0.3s ease;
-}
-
-footer .socials a:hover {
-  color: var(--accent1);
-}
-
-footer .socials {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 8px;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 768px) {
-  .hero-overlay {
-    padding: 30px 15px;
-  }
-
-  .grid-3 {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-modal-content,
-  .registration-modal-content,
-  .funding-modal-content {
-    flex-direction: column;
-    padding: 15px;
-  }
-}
-
-/* =========================
-   COMMON MODAL STYLES
+   MODAL BASE
 ========================= */
 .modal {
   position: fixed;
@@ -433,10 +247,11 @@ footer .socials {
   width: 100%;
   max-width: 800px;
   display: flex;
+  flex-direction: row;
   overflow: hidden;
-  flex-direction: row; /* left-right layout */
-  animation: slideUp 0.4s ease;
   position: relative;
+  min-height: 350px;
+  animation: slideUp 0.4s ease;
 }
 
 /* Close button */
@@ -455,15 +270,14 @@ footer .socials {
 }
 
 /* =========================
-   MODAL LEFT / RIGHT SIDES
+   MODAL LEFT/RIGHT
 ========================= */
-/* MODAL LEFT / RIGHT FIX */
 .contact-left,
 .reg-left,
 .fund-left {
   flex: 1;
   min-width: 250px;
-  height: 100%; /* make sure it fills the modal height */
+  height: 100%;
   background-size: cover;
   background-position: center;
   border-radius: 12px 0 0 12px;
@@ -477,27 +291,11 @@ footer .socials {
   padding: 30px 25px;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* center vertically */
+  justify-content: center;
   align-items: center;
   background: #fff;
 }
 
-/* Force modal content to have min-height so left side is visible */
-.contact-modal-content,
-.registration-modal-content,
-.funding-modal-content {
-  display: flex;
-  flex-direction: row;
-  min-height: 350px; /* adjust as needed */
-  width: 100%;
-  max-width: 800px;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff;
-}
-
-
-/* Avatar image inside right side */
 .contact-right img.avatar,
 .reg-right img.avatar,
 .fund-right img.avatar {
@@ -507,7 +305,6 @@ footer .socials {
   margin-bottom: 12px;
 }
 
-/* Headings and text */
 .modal-content h2,
 .contact-modal-content h2,
 .registration-modal-content h2,
@@ -559,11 +356,10 @@ footer .socials {
   resize: none;
 }
 
-/* Phone input with country flag */
 .input-group.phone {
   display: flex;
   align-items: center;
-  gap: 8px; /* spacing between flag, icon, input */
+  gap: 8px;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 8px;
@@ -585,13 +381,12 @@ footer .socials {
   font-size: 1rem;
 }
 
-/* Submit / action buttons inside modals */
 button[type="submit"],
 button.btn {
   padding: 10px 20px;
   border-radius: 8px;
   border: none;
-  background: #f97316; /* Orange accent */
+  background: #f97316;
   color: #fff;
   font-size: 1rem;
   cursor: pointer;
@@ -624,6 +419,14 @@ button.btn:hover {
    RESPONSIVE
 ========================= */
 @media (max-width: 768px) {
+  .hero-overlay {
+    padding: 30px 15px;
+  }
+
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+
   .contact-modal-content,
   .registration-modal-content,
   .funding-modal-content {
@@ -644,77 +447,9 @@ button.btn:hover {
     padding: 20px 15px;
   }
 }
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 768px) {
-  .contact-modal-content,
-  .registration-modal-content,
-  .funding-modal-content {
-    flex-direction: column;
-  }
-
-  .contact-left,
-  .reg-left,
-  .fund-left,
-  .contact-right,
-  .reg-right,
-  .fund-right {
-    min-width: 100%;
-  }
-}
+</style>
 
 
-/* =========================
-   SECTIONS (VOLUNTEER / DONATE / CONTACT)
-   ========================= */
-#volunteer,
-#donate,
-#contact {
-  padding: 40px 20px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  margin-bottom: 30px;
-}
-
-#volunteer h2,
-#donate h2,
-#contact h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-#volunteer p,
-#donate p,
-#contact p {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 20px;
-}
-
-#volunteer button,
-#donate button,
-#contact button {
-  font-size: 1rem;
-}
-
-
-/* =========================
-   RESPONSIVE
-   ========================= */
-@media(max-width: 768px) {
-  .contact-modal-content,
-  .registration-modal-content,
-  .funding-modal-content {
-    flex-direction: column;
-  }
-
- 
-   
-
-  </style>
 </head>
 <body>
 
