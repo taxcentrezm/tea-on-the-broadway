@@ -431,10 +431,10 @@ footer .socials {
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 700px;
+  max-width: 800px;
   display: flex;
-  flex-direction: column;
   overflow: hidden;
+  flex-direction: row; /* left-right layout */
   animation: slideUp 0.4s ease;
   position: relative;
 }
@@ -454,14 +454,52 @@ footer .socials {
   color: #333;
 }
 
-/* Modal headings & text */
+/* =========================
+   MODAL LEFT / RIGHT SIDES
+========================= */
+.contact-left,
+.reg-left,
+.fund-left {
+  flex: 1;
+  min-width: 250px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px 0 0 12px;
+  height: 100%;
+}
+
+.contact-right,
+.reg-right,
+.fund-right {
+  flex: 1;
+  min-width: 300px;
+  padding: 30px 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+/* Avatar image inside right side */
+.contact-right img.avatar,
+.reg-right img.avatar,
+.fund-right img.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 12px;
+}
+
+/* Headings and text */
 .modal-content h2,
 .contact-modal-content h2,
 .registration-modal-content h2,
 .funding-modal-content h2 {
   margin-top: 0;
-  text-align: center;
   font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 16px;
 }
 
 .modal-content p,
@@ -472,49 +510,6 @@ footer .socials {
   font-size: 1rem;
   color: #555;
   margin-bottom: 16px;
-}
-
-/* =========================
-   MODAL LAYOUTS
-========================= */
-.contact-modal-content,
-.registration-modal-content,
-.funding-modal-content {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.contact-left,
-.reg-left,
-.fund-left {
-  flex: 1;
-  min-width: 250px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 12px;
-  height: 100%;
-}
-
-.contact-right,
-.reg-right,
-.fund-right {
-  flex: 1;
-  min-width: 250px;
-  padding: 20px 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Avatar image inside modal */
-.contact-right img.avatar,
-.reg-right img.avatar,
-.fund-right img.avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  margin-bottom: 12px;
 }
 
 /* =========================
@@ -607,6 +602,31 @@ button.btn:hover {
 @keyframes slideUp {
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .contact-modal-content,
+  .registration-modal-content,
+  .funding-modal-content {
+    flex-direction: column;
+  }
+
+  .contact-left,
+  .reg-left,
+  .fund-left {
+    border-radius: 12px 12px 0 0;
+    min-height: 150px;
+  }
+
+  .contact-right,
+  .reg-right,
+  .fund-right {
+    min-width: 100%;
+    padding: 20px 15px;
+  }
 }
 
 /* =========================
