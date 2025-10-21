@@ -137,11 +137,15 @@ section.container {
 section h2 {
   font-size: 2rem;
   margin-bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 section p.text-muted {
   color: var(--muted);
   margin-bottom: 30px;
+  font-size: 1rem;
 }
 
 /* =========================
@@ -178,6 +182,9 @@ section p.text-muted {
 .card p {
   color: var(--muted);
   margin-bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .card button.btn {
@@ -285,14 +292,28 @@ section p.text-muted {
 /* =========================
    CONTACT FORM MODAL
 ========================= */
-.contact-modal-content {
+.contact-modal-content,
+.registration-modal-content,
+.funding-modal-content {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
   max-width: 850px;
 }
 
-.contact-modal-content .contact-right {
+.contact-modal-content .contact-left,
+.registration-modal-content .reg-left,
+.funding-modal-content .fund-left {
+  flex: 1;
+  min-width: 250px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+}
+
+.contact-modal-content .contact-right,
+.registration-modal-content .reg-right,
+.funding-modal-content .fund-right {
   flex: 1;
   min-width: 280px;
   display: flex;
@@ -301,18 +322,19 @@ section p.text-muted {
   padding: 20px;
 }
 
-.contact-modal-content .avatar {
+.contact-modal-content .avatar,
+.registration-modal-content .avatar {
   width: 80px;
   border-radius: 50%;
   margin: 0 auto 20px;
 }
 
-.contact-input {
+.input-group {
   position: relative;
   margin-bottom: 16px;
 }
 
-.contact-input i {
+.input-group i {
   position: absolute;
   top: 50%;
   left: 10px;
@@ -320,19 +342,45 @@ section p.text-muted {
   color: var(--muted);
 }
 
-.contact-input input,
-.contact-input textarea {
+.input-group input,
+.input-group textarea {
   padding: 12px 12px 12px 36px;
   width: 100%;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
 
-.contact-input.contact-phone span.country-code {
+.input-group.phone span.country-code {
   position: absolute;
   top: 50%;
   left: 12px;
   transform: translateY(-50%);
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  padding: 24px 20px;
+  background: rgba(0,0,0,0.05);
+  color: var(--dark);
+  font-size: 0.9rem;
+}
+
+footer .socials a {
+  color: var(--dark);
+  transition: color 0.3s ease;
+}
+
+footer .socials a:hover {
+  color: var(--accent1);
+}
+
+footer .socials {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
 }
 
 /* =========================
@@ -347,11 +395,14 @@ section p.text-muted {
     grid-template-columns: 1fr;
   }
 
-  .contact-modal-content {
+  .contact-modal-content,
+  .registration-modal-content,
+  .funding-modal-content {
     flex-direction: column;
     padding: 15px;
   }
 }
+
 
   </style>
 </head>
@@ -360,7 +411,7 @@ section p.text-muted {
   <!-- HEADER -->
 <header class="flex container">
   <div class="logo">
-    <img src="logo.png" alt="Golden Gatherings" width="40">
+    <img src="logo.jpg" alt="Golden Gatherings" width="40">
     <span>Golden Gatherings</span>
   </div>
   <nav>
@@ -424,14 +475,15 @@ section p.text-muted {
   </button>
 </section>
 
-<!-- DONATE / GO-FUND-ME -->
+<!-- DONATE / INTERNAL FUNDING -->
 <section id="donate" class="container mt-4 text-center">
   <h2><i data-feather="heart"></i> Support Our Cause</h2>
   <p class="text-muted">Your donations help us host more tea parties.</p>
-  <a href="https://www.gofundme.com/" target="_blank" class="btn">
-    <i data-feather="dollar-sign"></i> Donate via GoFundMe
-  </a>
+  <button class="btn" onclick="openFundingModal()">
+    <i data-feather="dollar-sign"></i> Donate
+  </button>
 </section>
+
 
 <!-- CONTACT -->
 <section id="contact" class="container mt-4 text-center">
@@ -459,318 +511,140 @@ section p.text-muted {
 
   <script src="smait-core.js"></script>
  <script>
-  // =========================
-  // FEATHER ICONS
-  // =========================
+// Activate feather icons
+feather.replace();
+
+// Modal utility
+function createModal(innerHTML) {
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.style.display = 'flex';
+  modal.innerHTML = innerHTML;
+  document.body.appendChild(modal);
+
   feather.replace();
 
-  // =========================
-  // MODAL UTILITY
-  // =========================
-  function closeModal(modal) {
-    modal.remove();
-  }
-
-  function createModal(innerHTML) {
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    modal.style.display = 'flex';
-    modal.innerHTML = innerHTML;
-
-    document.body.appendChild(modal);
-
-    feather.replace(); // apply feather icons
-
-    modal.addEventListener('click', e => {
-      if (e.target === modal) modal.remove();
-    });
-
-    return modal;
-  }
-
-  // =========================
-  // HERO SLIDESHOW
-  // =========================
-  const slides = document.querySelectorAll('.hero-slide');
-  const dotsContainer = document.querySelector('.dots');
-
-  if (slides.length && dotsContainer) {
-    slides.forEach((_, i) => {
-      const dot = document.createElement('span');
-      if (i === 0) dot.classList.add('active');
-      dotsContainer.appendChild(dot);
-    });
-
-    const dots = dotsContainer.querySelectorAll('span');
-    let currentSlide = 0;
-
-    function changeSlide(next = true) {
-      slides[currentSlide].classList.remove('active');
-      dots[currentSlide].classList.remove('active');
-      currentSlide = next
-        ? (currentSlide + 1) % slides.length
-        : (currentSlide - 1 + slides.length) % slides.length;
-      slides[currentSlide].classList.add('active');
-      dots[currentSlide].classList.add('active');
-    }
-
-    setInterval(() => changeSlide(true), 6000);
-  }
-
-  // =========================
-  // SERVICE MODAL LOGIC
-  // =========================
-  function openServiceModal(id) {
-    const card = document.querySelector(`[data-modal="${id}"]`);
-    if (!card) return;
-
-    const modalHTML = `
-      <div class="modal-content">
-        <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
-        <h2>${card.querySelector('h3').innerText}</h2>
-        <img src="${card.querySelector('img').src}" alt="${card.querySelector('h3').innerText}">
-        <p>${card.querySelector('p').innerText}</p>
-        <div class="extra-info">
-          <p>Here you can add more detailed information about this service, including features, benefits, pricing options, or customer success stories.</p>
-        </div>
-        <button onclick="openContactModal()">Apply for Quote</button>
-      </div>
-    `;
-    createModal(modalHTML);
-  }
-
-  document.querySelectorAll('.service-card').forEach(card => {
-    card.addEventListener('click', () => openServiceModal(card.dataset.modal));
+  modal.addEventListener('click', e => {
+    if (e.target === modal) modal.remove();
   });
 
-  // =========================
-  // CONTACT FORM MODAL
-  // =========================
-  function openContactModal() {
-    const modalHTML = `
-      <div class="contact-modal-content">
-        <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
-        <div class="contact-left" style="background:url('contact-image.jpg') center/cover; border-radius:12px;"></div>
-        <div class="contact-right">
-          <img src="avatar.png" class="avatar" alt="User Avatar">
-          <h2>Contact Us</h2>
-          <form id="contactForm">
-            <div class="input-group">
-              <i data-feather="user"></i>
-              <input type="text" name="name" placeholder="Full Name" required>
-            </div>
-            <div class="input-group">
-              <i data-feather="mail"></i>
-              <input type="email" name="email" placeholder="Email Address" required>
-            </div>
-            <div class="input-group phone">
-              <span class="country-code">🇿🇲 +260</span>
-              <i data-feather="phone"></i>
-              <input type="tel" name="phone" placeholder="Phone Number" required>
-            </div>
-            <div class="input-group">
-              <i data-feather="message-square"></i>
-              <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
-            </div>
-            <button type="submit">Send Message</button>
-          </form>
-        </div>
-      </div>
-    `;
-    const modal = createModal(modalHTML);
+  return modal;
+}
 
-    document.getElementById('contactForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const name = formData.get('name');
-      const email = formData.get('email');
-      const phone = formData.get('phone');
-      const message = formData.get('message');
+// HERO scroll helper
+window.scrollToSection = function(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+};
 
-      window.location.href = `mailto:organizer@example.com?subject=Contact Form Submission&body=Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0AMessage: ${message}`;
-      modal.remove();
-    });
-  }
-
-  // =========================
-  // REGISTRATION MODAL
-  // =========================
-  function openRegistrationModal(type) {
-    const modalHTML = `
-      <div class="registration-modal-content">
-        <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
-        <div class="reg-left" style="background:url('registration-image.jpg') center/cover; border-radius:12px;"></div>
-        <div class="reg-right">
-          <img src="avatar.png" class="avatar" alt="User Avatar">
-          <h2>${type} Registration</h2>
-          <form id="registrationForm">
-            <div class="input-group">
-              <i data-feather="user"></i>
-              <input type="text" name="name" placeholder="Full Name" required>
-            </div>
-            <div class="input-group">
-              <i data-feather="mail"></i>
-              <input type="email" name="email" placeholder="Email Address" required>
-            </div>
-            <div class="input-group phone">
-              <span class="country-code">🇿🇲 +260</span>
-              <i data-feather="phone"></i>
-              <input type="tel" name="phone" placeholder="Phone Number" required>
-            </div>
-            <button type="submit">Register</button>
-          </form>
-        </div>
-      </div>
-    `;
-    const modal = createModal(modalHTML);
-
-    document.getElementById('registrationForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const name = formData.get('name');
-      const email = formData.get('email');
-      const phone = formData.get('phone');
-
-      window.location.href = `mailto:organizer@example.com?subject=${type} Registration&body=Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}`;
-      modal.remove();
-    });
-  }
-
-  // =========================
-  // FUNDING MODAL
-  // =========================
-  function openFundingModal() {
-    const modalHTML = `
-      <div class="funding-modal-content">
-        <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
-        <div class="fund-left" style="background:url('funding-image.jpg') center/cover; border-radius:12px;"></div>
-        <div class="fund-right">
-          <h2>Support Our Tea Parties</h2>
-          <form id="fundingForm">
-            <div class="input-group">
-              <i data-feather="user"></i>
-              <input type="text" name="name" placeholder="Full Name" required>
-            </div>
-            <div class="input-group">
-              <i data-feather="mail"></i>
-              <input type="email" name="email" placeholder="Email Address" required>
-            </div>
-            <div class="input-group">
-              <i data-feather="credit-card"></i>
-              <input type="number" name="amount" placeholder="Donation Amount" required>
-            </div>
-            <button type="submit">Donate</button>
-          </form>
-        </div>
-      </div>
-    `;
-    const modal = createModal(modalHTML);
-
-    document.getElementById('fundingForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const name = formData.get('name');
-      const email = formData.get('email');
-      const amount = formData.get('amount');
-
-      window.location.href = `mailto:organizer@example.com?subject=Funding Submission&body=Name: ${name}%0D%0AEmail: ${email}%0D%0AAmount: ${amount}`;
-      modal.remove();
-    });
-  }
-
-  // =========================
-  // SCROLL HELPER
-  // =========================
-  window.scrollToSection = function(id) {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  // =========================
-  // PRICING CAROUSEL
-  // =========================
-  document.addEventListener("DOMContentLoaded", () => {
-    const track = document.getElementById("pricingTrack");
-    const groups = document.querySelectorAll(".pricing-group");
-    let currentIndex = 0;
-    const totalGroups = groups.length;
-
-    // Controls
-    const controls = document.createElement("div");
-    controls.className = "pricing-controls";
-    controls.innerHTML = `
-      <button id="prevPricing"><i data-feather="chevron-left"></i></button>
-      <button id="nextPricing"><i data-feather="chevron-right"></i></button>
-    `;
-    document.querySelector(".pricing-carousel").appendChild(controls);
-    feather.replace();
-
-    function showGroup(index) {
-      const offset = -index * 100;
-      track.style.transform = `translateX(${offset}%)`;
-      groups.forEach((g, i) => {
-        g.style.opacity = i === index ? "1" : "0.5";
-        g.style.transform = i === index ? "scale(1)" : "scale(0.97)";
-      });
-    }
-
-    document.getElementById("nextPricing").addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % totalGroups;
-      showGroup(currentIndex);
-    });
-
-    document.getElementById("prevPricing").addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + totalGroups) % totalGroups;
-      showGroup(currentIndex);
-    });
-
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % totalGroups;
-      showGroup(currentIndex);
-    }, 7000);
-
-    showGroup(currentIndex);
-  });
-
-  // =========================
-  // PRICING MODAL
-  // =========================
-  function openPricingModal(serviceName) {
-    const modalHTML = `
-      <div class="modal-content pricing-modal-content">
-        <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
-        <h2>Request Quote for ${serviceName}</h2>
-        <p>Fill in the form below and our team will send you a quote for <strong>${serviceName}</strong>.</p>
-        <form id="pricingForm">
-          <div class="input-group">
-            <i data-feather="user"></i>
-            <input type="text" name="name" placeholder="Full Name" required>
-          </div>
-          <div class="input-group">
-            <i data-feather="mail"></i>
-            <input type="email" name="email" placeholder="Email Address" required>
-          </div>
-          <div class="input-group">
-            <i data-feather="phone"></i>
-            <input type="tel" name="phone" placeholder="Phone Number" required>
-          </div>
-          <textarea name="details" placeholder="Additional details or requirements" rows="4"></textarea>
-          <button type="submit">Submit Request</button>
+// Event Registration Modal
+function openEventModal(eventName) {
+  const modalHTML = `
+    <div class="registration-modal-content">
+      <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
+      <div class="reg-left" style="background:url('event.jpg') center/cover; border-radius:12px;"></div>
+      <div class="reg-right">
+        <h2>${eventName} Registration</h2>
+        <form id="eventForm">
+          <div class="input-group"><i data-feather="user"></i><input type="text" name="name" placeholder="Full Name" required></div>
+          <div class="input-group"><i data-feather="mail"></i><input type="email" name="email" placeholder="Email Address" required></div>
+          <div class="input-group phone"><span class="country-code">🇿🇲 +260</span><i data-feather="phone"></i><input type="tel" name="phone" placeholder="Phone Number" required></div>
+          <button type="submit">Register</button>
         </form>
       </div>
-    `;
-    const modal = createModal(modalHTML);
+    </div>
+  `;
+  const modal = createModal(modalHTML);
 
-    document.getElementById("pricingForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const name = formData.get("name");
-      const email = formData.get("email");
-      const phone = formData.get("phone");
+  document.getElementById('eventForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    window.location.href = `mailto:organizer@example.com?subject=Event Registration: ${eventName}&body=Name: ${f.get('name')}\nEmail: ${f.get('email')}\nPhone: ${f.get('phone')}`;
+    modal.remove();
+  });
+}
 
-      window.location.href = `mailto:organizer@example.com?subject=Quote Request: ${serviceName}&body=Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}`;
-      modal.remove();
-    });
-  }
+// Volunteer Signup Modal
+function openVolunteerModal() {
+  const modalHTML = `
+    <div class="registration-modal-content">
+      <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
+      <div class="reg-left" style="background:url('volunteer.jpg') center/cover; border-radius:12px;"></div>
+      <div class="reg-right">
+        <h2>Volunteer Registration</h2>
+        <form id="volunteerForm">
+          <div class="input-group"><i data-feather="user"></i><input type="text" name="name" placeholder="Full Name" required></div>
+          <div class="input-group"><i data-feather="mail"></i><input type="email" name="email" placeholder="Email Address" required></div>
+          <div class="input-group phone"><span class="country-code">🇿🇲 +260</span><i data-feather="phone"></i><input type="tel" name="phone" placeholder="Phone Number" required></div>
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  `;
+  const modal = createModal(modalHTML);
+
+  document.getElementById('volunteerForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    window.location.href = `mailto:organizer@example.com?subject=Volunteer Registration&body=Name: ${f.get('name')}\nEmail: ${f.get('email')}\nPhone: ${f.get('phone')}`;
+    modal.remove();
+  });
+}
+
+// Contact Form Modal
+function openContactModal() {
+  const modalHTML = `
+    <div class="contact-modal-content">
+      <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
+      <div class="contact-left" style="background:url('contact.jpg') center/cover; border-radius:12px;"></div>
+      <div class="contact-right">
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+          <div class="input-group"><i data-feather="user"></i><input type="text" name="name" placeholder="Full Name" required></div>
+          <div class="input-group"><i data-feather="mail"></i><input type="email" name="email" placeholder="Email Address" required></div>
+          <div class="input-group phone"><span class="country-code">🇿🇲 +260</span><i data-feather="phone"></i><input type="tel" name="phone" placeholder="Phone Number" required></div>
+          <div class="input-group"><i data-feather="message-square"></i><textarea name="message" placeholder="Your Message" rows="4" required></textarea></div>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  `;
+  const modal = createModal(modalHTML);
+
+  document.getElementById('contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    window.location.href = `mailto:organizer@example.com?subject=Contact Form&body=Name: ${f.get('name')}\nEmail: ${f.get('email')}\nPhone: ${f.get('phone')}\nMessage: ${f.get('message')}`;
+    modal.remove();
+  });
+}
+
+// Internal Funding Modal
+function openFundingModal() {
+  const modalHTML = `
+    <div class="funding-modal-content">
+      <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
+      <div class="fund-left" style="background:url('funding.jpg') center/cover; border-radius:12px;"></div>
+      <div class="fund-right">
+        <h2>Support Our Tea Parties</h2>
+        <form id="fundingForm">
+          <div class="input-group"><i data-feather="user"></i><input type="text" name="name" placeholder="Full Name" required></div>
+          <div class="input-group"><i data-feather="mail"></i><input type="email" name="email" placeholder="Email Address" required></div>
+          <div class="input-group"><i data-feather="credit-card"></i><input type="number" name="amount" placeholder="Donation Amount" required></div>
+          <button type="submit">Donate</button>
+        </form>
+      </div>
+    </div>
+  `;
+  const modal = createModal(modalHTML);
+
+  document.getElementById('fundingForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    window.location.href = `mailto:organizer@example.com?subject=Donation&body=Name: ${f.get('name')}\nEmail: ${f.get('email')}\nAmount: ${f.get('amount')}`;
+    modal.remove();
+  });
+}
+
 </script>
 
 </body>
