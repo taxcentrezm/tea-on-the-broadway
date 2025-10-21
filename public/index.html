@@ -319,66 +319,7 @@ section p.text-muted {
   background: #ff875b;
 }
 
-/* =========================
-   MODALS
-========================= */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.modal-content {
-  background: white;
-  border-radius: 16px;
-  padding: 30px;
-  width: 90%;
-  max-width: 700px;
-  position: relative;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.modal-content h2 {
-  margin-bottom: 16px;
-}
-
-.modal-content p {
-  margin-bottom: 20px;
-}
-
-.modal-content button {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  background: var(--accent1);
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.modal-content button:hover {
-  background: #ff875b;
-}
-
-.close-btn {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  background: none;
-  border: none;
-  font-size: 28px;
-  cursor: pointer;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-
+/
 /* =========================
    CONTACT FORM MODAL
 ========================= */
@@ -417,32 +358,6 @@ section p.text-muted {
   width: 80px;
   border-radius: 50%;
   margin: 0 auto 20px;
-}
-
-.input-group.phone {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 8px;
-}
-
-.input-group.phone .country-code {
-  display: inline-block;
-  font-size: 0.9rem;
-}
-
-.input-group.phone i {
-  flex-shrink: 0;
-  color: #555;
-}
-
-.input-group.phone input {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 1rem;
 }
 
 
@@ -494,7 +409,7 @@ footer .socials {
 
 /* =========================
    COMMON MODAL STYLES
-   ========================= */
+========================= */
 .modal {
   position: fixed;
   inset: 0;
@@ -511,8 +426,7 @@ footer .socials {
 .modal-content,
 .contact-modal-content,
 .registration-modal-content,
-.funding-modal-content,
-.pricing-modal-content {
+.funding-modal-content {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
@@ -522,13 +436,14 @@ footer .socials {
   flex-direction: column;
   overflow: hidden;
   animation: slideUp 0.4s ease;
+  position: relative;
 }
 
+/* Close button */
 .modal-content button.close-btn,
 .contact-modal-content button.close-btn,
 .registration-modal-content button.close-btn,
-.funding-modal-content button.close-btn,
-.pricing-modal-content button.close-btn {
+.funding-modal-content button.close-btn {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -539,11 +454,11 @@ footer .socials {
   color: #333;
 }
 
+/* Modal headings & text */
 .modal-content h2,
 .contact-modal-content h2,
 .registration-modal-content h2,
-.funding-modal-content h2,
-.pricing-modal-content h2 {
+.funding-modal-content h2 {
   margin-top: 0;
   text-align: center;
   font-size: 1.8rem;
@@ -552,21 +467,22 @@ footer .socials {
 .modal-content p,
 .contact-modal-content p,
 .registration-modal-content p,
-.funding-modal-content p,
-.pricing-modal-content p {
+.funding-modal-content p {
   text-align: center;
   font-size: 1rem;
   color: #555;
+  margin-bottom: 16px;
 }
 
 /* =========================
    MODAL LAYOUTS
-   ========================= */
+========================= */
 .contact-modal-content,
 .registration-modal-content,
 .funding-modal-content {
-  flex-direction: row;
+  display: flex;
   flex-wrap: wrap;
+  gap: 16px;
 }
 
 .contact-left,
@@ -574,9 +490,10 @@ footer .socials {
 .fund-left {
   flex: 1;
   min-width: 250px;
-  height: 100%;
   background-size: cover;
   background-position: center;
+  border-radius: 12px;
+  height: 100%;
 }
 
 .contact-right,
@@ -590,6 +507,7 @@ footer .socials {
   align-items: center;
 }
 
+/* Avatar image inside modal */
 .contact-right img.avatar,
 .reg-right img.avatar,
 .fund-right img.avatar {
@@ -599,7 +517,64 @@ footer .socials {
   margin-bottom: 12px;
 }
 
+/* =========================
+   FORM ELEMENTS
+========================= */
+.input-group {
+  position: relative;
+  width: 100%;
+  margin-bottom: 16px;
+}
 
+.input-group i {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #555;
+}
+
+.input-group input,
+.input-group textarea {
+  padding: 12px 12px 12px 36px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+}
+
+.input-group textarea {
+  resize: none;
+}
+
+/* Phone input with country flag */
+.input-group.phone {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* spacing between flag, icon, input */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.input-group.phone .country-code {
+  font-size: 0.9rem;
+}
+
+.input-group.phone i {
+  color: #555;
+  flex-shrink: 0;
+}
+
+.input-group.phone input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+/* Submit / action buttons inside modals */
 button[type="submit"],
 button.btn {
   padding: 10px 20px;
@@ -620,6 +595,40 @@ button[type="submit"]:hover,
 button.btn:hover {
   background: #ea580c;
 }
+
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .contact-modal-content,
+  .registration-modal-content,
+  .funding-modal-content {
+    flex-direction: column;
+  }
+
+  .contact-left,
+  .reg-left,
+  .fund-left,
+  .contact-right,
+  .reg-right,
+  .fund-right {
+    min-width: 100%;
+  }
+}
+
 
 /* =========================
    SECTIONS (VOLUNTEER / DONATE / CONTACT)
@@ -655,18 +664,6 @@ button.btn:hover {
   font-size: 1rem;
 }
 
-/* =========================
-   ANIMATIONS
-   ========================= */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
 
 /* =========================
    RESPONSIVE
@@ -678,41 +675,8 @@ button.btn:hover {
     flex-direction: column;
   }
 
-  .contact-left,
-  .reg-left,
-  .fund-left,
-  .contact-right,
-  .reg-right,
-  .fund-right {
-    min-width: 100%;
-  }
-}
-
-    .input-group.phone {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* spacing between flag, icon, and input */
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 8px;
-}
-
-.input-group.phone .country-code {
-  display: inline-block;
-  font-size: 0.9rem;
-}
-
-.input-group.phone i {
-  flex-shrink: 0;
-  color: #555;
-}
-
-.input-group.phone input {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-}
+ 
+   
 
   </style>
 </head>
