@@ -70,15 +70,105 @@ header nav a:hover {
 /* =========================
    HERO
 ========================= */
+/* HERO SLIDESHOW */
 .hero {
   position: relative;
-  height: 90vh;
+  width: 100%;
+  height: 100vh; /* fullscreen */
+  overflow: hidden;
+}
+
+.hero-slides {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('hero.jpg') center/cover no-repeat;
-  overflow: hidden;
 }
+
+.hero-slide.active {
+  opacity: 1;
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 40px;
+  border-radius: 12px;
+  color: #fff;
+  text-align: center;
+}
+
+.hero-overlay h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.hero-overlay p {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+/* SLIDE DOTS */
+.dots {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.dots span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 5px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dots span.active {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* EVENT CARDS WITH MINI IMAGES */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card .event-thumb {
+  width: 100%;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
 
 .hero-overlay {
   position: relative;
@@ -403,6 +493,238 @@ footer .socials {
   }
 }
 
+/* =========================
+   COMMON MODAL STYLES
+   ========================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content,
+.contact-modal-content,
+.registration-modal-content,
+.funding-modal-content,
+.pricing-modal-content {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideUp 0.4s ease;
+}
+
+.modal-content button.close-btn,
+.contact-modal-content button.close-btn,
+.registration-modal-content button.close-btn,
+.funding-modal-content button.close-btn,
+.pricing-modal-content button.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.modal-content h2,
+.contact-modal-content h2,
+.registration-modal-content h2,
+.funding-modal-content h2,
+.pricing-modal-content h2 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.modal-content p,
+.contact-modal-content p,
+.registration-modal-content p,
+.funding-modal-content p,
+.pricing-modal-content p {
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* =========================
+   MODAL LAYOUTS
+   ========================= */
+.contact-modal-content,
+.registration-modal-content,
+.funding-modal-content {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.contact-left,
+.reg-left,
+.fund-left {
+  flex: 1;
+  min-width: 250px;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.contact-right,
+.reg-right,
+.fund-right {
+  flex: 1;
+  min-width: 250px;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-right img.avatar,
+.reg-right img.avatar,
+.fund-right img.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 12px;
+}
+
+.input-group {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #fafafa;
+}
+
+.input-group i {
+  margin-right: 8px;
+  color: #555;
+}
+
+.input-group input,
+.input-group textarea {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 1rem;
+  background: transparent;
+}
+
+.input-group textarea {
+  resize: none;
+}
+
+.input-group.phone {
+  gap: 5px;
+}
+
+.input-group .country-code {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+button[type="submit"],
+button.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background: #f97316; /* Orange accent */
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover,
+button.btn:hover {
+  background: #ea580c;
+}
+
+/* =========================
+   SECTIONS (VOLUNTEER / DONATE / CONTACT)
+   ========================= */
+#volunteer,
+#donate,
+#contact {
+  padding: 40px 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+}
+
+#volunteer h2,
+#donate h2,
+#contact h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+#volunteer p,
+#donate p,
+#contact p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+#volunteer button,
+#donate button,
+#contact button {
+  font-size: 1rem;
+}
+
+/* =========================
+   ANIMATIONS
+   ========================= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+@media(max-width: 768px) {
+  .contact-modal-content,
+  .registration-modal-content,
+  .funding-modal-content {
+    flex-direction: column;
+  }
+
+  .contact-left,
+  .reg-left,
+  .fund-left,
+  .contact-right,
+  .reg-right,
+  .fund-right {
+    min-width: 100%;
+  }
+}
 
   </style>
 </head>
@@ -423,14 +745,47 @@ footer .socials {
 </header>
 
 <!-- HERO -->
+<!-- HERO SLIDESHOW -->
 <section class="hero">
-  <div class="hero-overlay text-center">
-    <h1>Tea Parties for the Elderly</h1>
-    <p>Connecting generations with joy, tea, and laughter.</p>
-    <button class="btn" onclick="scrollToSection('events')">
-      <i data-feather="arrow-down"></i> View Upcoming Events
-    </button>
+  <div class="hero-slides">
+    <div class="hero-slide active" style="background-image:url('slides (1).jpg')">
+      <div class="hero-overlay">
+        <h1>Tea Parties for the Elderly</h1>
+        <p>Connecting generations with joy, tea, and laughter.</p>
+        <button class="btn" onclick="scrollToSection('events')">
+          <i data-feather="arrow-down"></i> View Upcoming Events
+        </button>
+      </div>
+    </div>
+    <div class="hero-slide" style="background-image:url('slide (1).jpg')">
+      <div class="hero-overlay">
+        <h1>Spring Tea Party</h1>
+        <p>Join us for a delightful afternoon of tea and conversation!</p>
+        <button class="btn" onclick="scrollToSection('events')">
+          <i data-feather="arrow-down"></i> View Events
+        </button>
+      </div>
+    </div>
+    <div class="hero-slide" style="background-image:url('slide (2).jpg')">
+      <div class="hero-overlay">
+        <h1>Summer Tea Party</h1>
+        <p>Enjoy the sun and tea at the Botanical Gardens!</p>
+        <button class="btn" onclick="scrollToSection('events')">
+          <i data-feather="arrow-down"></i> View Events
+        </button>
+      </div>
+    </div>
+    <div class="hero-slide" style="background-image:url('slides (2).jpg')">
+      <div class="hero-overlay">
+        <h1>Spring Tea Party</h1>
+        <p>Join us for a delightful afternoon of tea and conversation!</p>
+        <button class="btn" onclick="scrollToSection('events')">
+          <i data-feather="arrow-down"></i> View Events
+        </button>
+      </div>
+    </div>
   </div>
+  <div class="dots"></div>
 </section>
 
 <!-- UPCOMING EVENTS -->
@@ -438,28 +793,30 @@ footer .socials {
   <h2><i data-feather="calendar"></i> Upcoming Tea Parties</h2>
   <p class="text-muted">Join us for fun, conversation, and tea!</p>
   <div class="grid grid-3 mt-4">
-    <!-- Event Cards -->
     <div class="card">
+      <img src="slide (1).jpg" alt="Spring Tea" class="event-thumb">
       <h3>Spring Tea Party</h3>
       <p><i data-feather="calendar"></i> Date: April 12, 2026</p>
       <p><i data-feather="map-pin"></i> Location: Community Hall, Downtown</p>
-      <button class="btn" onclick="openEventModal('Spring Tea Party')">
+      <button class="btn" onclick="openRegistrationModal('Spring Tea Party')">
         <i data-feather="user-plus"></i> Register
       </button>
     </div>
     <div class="card">
+      <img src="slide (2).jpg" alt="Summer Tea" class="event-thumb">
       <h3>Summer Tea Party</h3>
       <p><i data-feather="calendar"></i> Date: July 20, 2026</p>
       <p><i data-feather="map-pin"></i> Location: Botanical Gardens</p>
-      <button class="btn" onclick="openEventModal('Summer Tea Party')">
+      <button class="btn" onclick="openRegistrationModal('Summer Tea Party')">
         <i data-feather="user-plus"></i> Register
       </button>
     </div>
     <div class="card">
+      <img src="slides (1).jpg" alt="Autumn Tea" class="event-thumb">
       <h3>Autumn Tea Party</h3>
       <p><i data-feather="calendar"></i> Date: October 15, 2026</p>
       <p><i data-feather="map-pin"></i> Location: Riverside Community Center</p>
-      <button class="btn" onclick="openEventModal('Autumn Tea Party')">
+      <button class="btn" onclick="openRegistrationModal('Autumn Tea Party')">
         <i data-feather="user-plus"></i> Register
       </button>
     </div>
@@ -541,7 +898,7 @@ function openEventModal(eventName) {
   const modalHTML = `
     <div class="registration-modal-content">
       <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
-      <div class="reg-left" style="background:url('event.jpg') center/cover; border-radius:12px;"></div>
+      <div class="reg-left" style="background:url('image.jpg') center/cover; border-radius:12px;"></div>
       <div class="reg-right">
         <h2>${eventName} Registration</h2>
         <form id="eventForm">
@@ -568,7 +925,7 @@ function openVolunteerModal() {
   const modalHTML = `
     <div class="registration-modal-content">
       <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
-      <div class="reg-left" style="background:url('volunteer.jpg') center/cover; border-radius:12px;"></div>
+      <div class="reg-left" style="background:url('image.jpg') center/cover; border-radius:12px;"></div>
       <div class="reg-right">
         <h2>Volunteer Registration</h2>
         <form id="volunteerForm">
@@ -595,7 +952,7 @@ function openContactModal() {
   const modalHTML = `
     <div class="contact-modal-content">
       <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
-      <div class="contact-left" style="background:url('contact.jpg') center/cover; border-radius:12px;"></div>
+      <div class="contact-left" style="background:url('image.jpg') center/cover; border-radius:12px;"></div>
       <div class="contact-right">
         <h2>Contact Us</h2>
         <form id="contactForm">
@@ -623,7 +980,7 @@ function openFundingModal() {
   const modalHTML = `
     <div class="funding-modal-content">
       <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
-      <div class="fund-left" style="background:url('funding.jpg') center/cover; border-radius:12px;"></div>
+      <div class="fund-left" style="background:url('image.jpg') center/cover; border-radius:12px;"></div>
       <div class="fund-right">
         <h2>Support Our Tea Parties</h2>
         <form id="fundingForm">
@@ -644,6 +1001,35 @@ function openFundingModal() {
     modal.remove();
   });
 }
+   const slides = document.querySelectorAll('.hero-slide');
+const dotsContainer = document.querySelector('.dots');
+
+slides.forEach((slide, i) => {
+  const dot = document.createElement('span');
+  if (i === 0) dot.classList.add('active');
+  dot.addEventListener('click', () => goToSlide(i));
+  dotsContainer.appendChild(dot);
+});
+
+let currentSlide = 0;
+function changeSlide(next = true) {
+  slides[currentSlide].classList.remove('active');
+  dotsContainer.children[currentSlide].classList.remove('active');
+  currentSlide = next ? (currentSlide + 1) % slides.length : (currentSlide - 1 + slides.length) % slides.length;
+  slides[currentSlide].classList.add('active');
+  dotsContainer.children[currentSlide].classList.add('active');
+}
+
+function goToSlide(index) {
+  slides[currentSlide].classList.remove('active');
+  dotsContainer.children[currentSlide].classList.remove('active');
+  currentSlide = index;
+  slides[currentSlide].classList.add('active');
+  dotsContainer.children[currentSlide].classList.add('active');
+}
+
+setInterval(() => changeSlide(true), 6000);
+
 
 </script>
 
