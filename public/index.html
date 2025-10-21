@@ -600,43 +600,6 @@ footer .socials {
   margin-bottom: 12px;
 }
 
-.input-group {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 8px 12px;
-  background: #fafafa;
-}
-
-.input-group i {
-  margin-right: 8px;
-  color: #555;
-}
-
-.input-group input,
-.input-group textarea {
-  border: none;
-  outline: none;
-  flex: 1;
-  font-size: 1rem;
-  background: transparent;
-}
-
-.input-group textarea {
-  resize: none;
-}
-
-.input-group.phone {
-  gap: 5px;
-}
-
-.input-group .country-code {
-  font-size: 0.9rem;
-  color: #333;
-}
 
 button[type="submit"],
 button.btn {
@@ -726,6 +689,32 @@ button.btn:hover {
   }
 }
 
+    .input-group.phone {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* spacing between flag, icon, and input */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.input-group.phone .country-code {
+  display: inline-block;
+  font-size: 0.9rem;
+}
+
+.input-group.phone i {
+  flex-shrink: 0;
+  color: #555;
+}
+
+.input-group.phone input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
   </style>
 </head>
 <body>
@@ -798,16 +787,17 @@ button.btn:hover {
       <h3>Spring Tea Party</h3>
       <p><i data-feather="calendar"></i> Date: April 12, 2026</p>
       <p><i data-feather="map-pin"></i> Location: Community Hall, Downtown</p>
-      <button class="btn" onclick="openRegistrationModal('Spring Tea Party')">
-        <i data-feather="user-plus"></i> Register
-      </button>
+      <button class="btn register-btn" data-event="Spring Tea Party">
+  <i data-feather="user-plus"></i> Register
+</button>
+      
     </div>
     <div class="card">
       <img src="slide (2).jpg" alt="Summer Tea" class="event-thumb">
       <h3>Summer Tea Party</h3>
       <p><i data-feather="calendar"></i> Date: July 20, 2026</p>
       <p><i data-feather="map-pin"></i> Location: Botanical Gardens</p>
-      <button class="btn" onclick="openRegistrationModal('Summer Tea Party')">
+      <button class="btn register-btn" data-event="Summer Tea Party">
         <i data-feather="user-plus"></i> Register
       </button>
     </div>
@@ -816,7 +806,7 @@ button.btn:hover {
       <h3>Autumn Tea Party</h3>
       <p><i data-feather="calendar"></i> Date: October 15, 2026</p>
       <p><i data-feather="map-pin"></i> Location: Riverside Community Center</p>
-      <button class="btn" onclick="openRegistrationModal('Autumn Tea Party')">
+      <button class="btn register-btn" data-event="Autumn Tea Party">
         <i data-feather="user-plus"></i> Register
       </button>
     </div>
@@ -871,6 +861,13 @@ button.btn:hover {
 // Activate feather icons
 feather.replace();
 
+   document.querySelectorAll('.register-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const type = btn.dataset.event; 
+    openRegistrationModal(type);
+  });
+});
+   
 // Modal utility
 function createModal(innerHTML) {
   const modal = document.createElement('div');
@@ -904,7 +901,11 @@ function openEventModal(eventName) {
         <form id="eventForm">
           <div class="input-group"><i data-feather="user"></i><input type="text" name="name" placeholder="Full Name" required></div>
           <div class="input-group"><i data-feather="mail"></i><input type="email" name="email" placeholder="Email Address" required></div>
-          <div class="input-group phone"><span class="country-code">🇿🇲 +260</span><i data-feather="phone"></i><input type="tel" name="phone" placeholder="Phone Number" required></div>
+          <div class="input-group phone">
+  <span class="country-code">🇿🇲 +260</span>
+  <i data-feather="phone"></i>
+  <input type="tel" name="phone" placeholder="Phone Number" required>
+</div>
           <button type="submit">Register</button>
         </form>
       </div>
@@ -931,7 +932,12 @@ function openVolunteerModal() {
         <form id="volunteerForm">
           <div class="input-group"><i data-feather="user"></i><input type="text" name="name" placeholder="Full Name" required></div>
           <div class="input-group"><i data-feather="mail"></i><input type="email" name="email" placeholder="Email Address" required></div>
-          <div class="input-group phone"><span class="country-code">🇿🇲 +260</span><i data-feather="phone"></i><input type="tel" name="phone" placeholder="Phone Number" required></div>
+          <div class="input-group phone">
+  <span class="country-code">🇿🇲 +260</span>
+  <i data-feather="phone"></i>
+  <input type="tel" name="phone" placeholder="Phone Number" required>
+</div>
+
           <button type="submit">Sign Up</button>
         </form>
       </div>
@@ -958,7 +964,12 @@ function openContactModal() {
         <form id="contactForm">
           <div class="input-group"><i data-feather="user"></i><input type="text" name="name" placeholder="Full Name" required></div>
           <div class="input-group"><i data-feather="mail"></i><input type="email" name="email" placeholder="Email Address" required></div>
-          <div class="input-group phone"><span class="country-code">🇿🇲 +260</span><i data-feather="phone"></i><input type="tel" name="phone" placeholder="Phone Number" required></div>
+         <div class="input-group phone">
+  <span class="country-code">🇿🇲 +260</span>
+  <i data-feather="phone"></i>
+  <input type="tel" name="phone" placeholder="Phone Number" required>
+</div>
+
           <div class="input-group"><i data-feather="message-square"></i><textarea name="message" placeholder="Your Message" rows="4" required></textarea></div>
           <button type="submit">Send Message</button>
         </form>
