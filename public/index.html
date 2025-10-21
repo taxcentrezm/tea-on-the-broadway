@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Golden Gatherings</title>
+  <link rel="stylesheet" href="smait-core.css">
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    :root {
+  --accent1: #ff6a3d;
+  --accent2: #3b82f6;
+  --accent3: #10b981;
+  --accent4: #f59e0b;
+  --dark: #0d1117;
+  --light: #fafafa;
+  --text-dark: #222;
+  --text-light: #555;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #fff;
+  color: var(--text-dark);
+}
+
+/* =========================
+   HEADER
+========================= */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  z-index: 100;
+  padding: 12px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--accent1);
+}
+
+header .logo img {
+  width: 40px;
+  margin-right: 10px;
+}
+
+nav a {
+  margin: 0 12px;
+  color: var(--text-dark);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: var(--accent1);
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: url('hero-bg.jpg') center/cover no-repeat;
+}
+
+.hero-overlay {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 40px 20px;
+  border-radius: 12px;
+  animation: fadeSlide 1.2s ease;
+}
+
+.hero-overlay h1 {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+}
+
+.hero-overlay p {
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+}
+
+.hero-overlay .btn {
+  background: var(--accent1);
+  border: none;
+  padding: 12px 28px;
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.hero-overlay .btn:hover {
+  background: #ff875b;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================
+   SECTION HEADERS
+========================= */
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+section p.text-muted {
+  color: var(--text-light);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* =========================
+   GRID & CARDS
+========================= */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 0 50px;
+}
+
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: var(--text-light);
+  margin-bottom: 12px;
+}
+
+.card .btn {
+  margin-top: 10px;
+}
+
+/* =========================
+   MODAL
+========================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  width: 90%;
+  max-width: 600px;
+  text-align: left;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-content img {
+  width: 100%;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-content button {
+  background: var(--accent1);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.modal-content button:hover {
+  background: #ff875b;
+}
+
+/* =========================
+   CONTACT FORM
+========================= */
+.contact-modal-content {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 800px;
+}
+
+.contact-right {
+  flex: 1;
+  min-width: 250px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact-right h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.contact-right .avatar {
+  width: 80px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+}
+
+.contact-input {
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.contact-input i {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: var(--accent2);
+}
+
+.contact-input input,
+.contact-input textarea {
+  width: 100%;
+  padding: 12px 12px 12px 36px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* Phone input */
+.contact-phone .country-code {
+  font-size: 1.1rem;
+  margin-right: 6px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.btn {
+  background: var(--accent1);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #ff875b;
+}
+
+/* =========================
+   DONATE SECTION
+========================= */
+#donate a.btn {
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 12px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  background: var(--dark);
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+footer .socials {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+footer a:hover {
+  color: var(--accent1);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .hero-overlay h1 {
+    font-size: 1.8rem;
+  }
+  .hero-overlay p {
+    font-size: 1rem;
+  }
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="flex container">
+    <div class="logo">
+      <img src="logo.png" alt="Golden Gatherings" width="40">
+      <span>Golden Gatherings</span>
+    </div>
+    <nav>
+      <a href="#events">Events</a>
+      <a href="#volunteer">Volunteer</a>
+      <a href="#donate">Donate</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-overlay text-center">
+      <h1>Tea Parties for the Elderly</h1>
+      <p>Connecting generations with joy, tea, and laughter.</p>
+      <button class="btn" onclick="scrollToSection('events')">View Upcoming Events</button>
+    </div>
+  </section>
+
+  <!-- UPCOMING EVENTS -->
+  <section id="events" class="container mt-4 text-center">
+    <h2>Upcoming Tea Parties</h2>
+    <p class="text-muted">Join us for fun, conversation, and tea!</p>
+    <div class="grid grid-3 mt-4">
+      <!-- Event Cards -->
+      <div class="card">
+        <h3>Spring Tea Party</h3>
+        <p>Date: April 12, 2026</p>
+        <p>Location: Community Hall, Downtown</p>
+        <button class="btn" onclick="openEventModal('Spring Tea Party')">Register</button>
+      </div>
+      <div class="card">
+        <h3>Summer Tea Party</h3>
+        <p>Date: July 20, 2026</p>
+        <p>Location: Botanical Gardens</p>
+        <button class="btn" onclick="openEventModal('Summer Tea Party')">Register</button>
+      </div>
+      <div class="card">
+        <h3>Autumn Tea Party</h3>
+        <p>Date: October 15, 2026</p>
+        <p>Location: Riverside Community Center</p>
+        <button class="btn" onclick="openEventModal('Autumn Tea Party')">Register</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOLUNTEER SIGNUP -->
+  <section id="volunteer" class="container mt-4 text-center">
+    <h2>Become a Volunteer</h2>
+    <p class="text-muted">Help us make every event memorable.</p>
+    <button class="btn" onclick="openVolunteerModal()">Sign Up</button>
+  </section>
+
+  <!-- DONATE / GO-FUND-ME -->
+  <section id="donate" class="container mt-4 text-center">
+    <h2>Support Our Cause</h2>
+    <p class="text-muted">Your donations help us host more tea parties.</p>
+    <a href="https://www.gofundme.com/" target="_blank" class="btn">Donate via GoFundMe</a>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="container mt-4 text-center">
+    <h2>Contact Us</h2>
+    <p class="text-muted">Questions? Suggestions? Get in touch!</p>
+    <button class="btn" onclick="openContactModal()">Contact Form</button>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="mt-4 text-center">
+    <p>© 2026 Golden Gatherings. All rights reserved.</p>
+    <div class="socials flex justify-center gap-4 mt-2">
+      <a href="#"><i data-feather="facebook"></i></a>
+      <a href="#"><i data-feather="instagram"></i></a>
+      <a href="#"><i data-feather="twitter"></i></a>
+    </div>
+  </footer>
+
+  <script src="smait-core.js"></script>
+  <script>
+    feather.replace();
+
+    function openEventModal(eventName) {
+      const modal = document.createElement('div');
+      modal.className = 'modal active';
+      modal.innerHTML = `
+        <div class="modal-content">
+          <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
+          <h2>Register for ${eventName}</h2>
+          <form id="eventForm">
+            <div class="input-group">
+              <i data-feather="user"></i>
+              <input type="text" placeholder="Full Name" required>
+            </div>
+            <div class="input-group">
+              <i data-feather="mail"></i>
+              <input type="email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group">
+              <i data-feather="phone"></i>
+              <input type="tel" placeholder="Phone Number" required>
+            </div>
+            <select required>
+              <option value="">I am a:</option>
+              <option value="elderly">Elderly Participant</option>
+              <option value="volunteer">Volunteer</option>
+            </select>
+            <button type="submit" class="btn">Register</button>
+          </form>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      feather.replace();
+      modal.querySelector('#eventForm').addEventListener('submit', e => {
+        e.preventDefault();
+        alert(`Thank you for registering for ${eventName}!`);
+        modal.remove();
+      });
+    }
+
+    function openVolunteerModal() {
+      // Similar modal structure to event registration
+      openEventModal("Volunteer Registration");
+    }
+
+    function openContactModal() {
+      alert("Contact form will appear here!");
+      // You can replace this with your SMAIT core contact modal
+    }
+
+    function scrollToSection(id) {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
