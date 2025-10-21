@@ -457,15 +457,16 @@ footer .socials {
 /* =========================
    MODAL LEFT / RIGHT SIDES
 ========================= */
+/* MODAL LEFT / RIGHT FIX */
 .contact-left,
 .reg-left,
 .fund-left {
   flex: 1;
   min-width: 250px;
+  height: 100%; /* make sure it fills the modal height */
   background-size: cover;
   background-position: center;
   border-radius: 12px 0 0 12px;
-  height: 100%;
 }
 
 .contact-right,
@@ -476,10 +477,25 @@ footer .socials {
   padding: 30px 25px;
   display: flex;
   flex-direction: column;
+  justify-content: center; /* center vertically */
   align-items: center;
-  justify-content: center;
   background: #fff;
 }
+
+/* Force modal content to have min-height so left side is visible */
+.contact-modal-content,
+.registration-modal-content,
+.funding-modal-content {
+  display: flex;
+  flex-direction: row;
+  min-height: 350px; /* adjust as needed */
+  width: 100%;
+  max-width: 800px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+
 
 /* Avatar image inside right side */
 .contact-right img.avatar,
