@@ -7,15 +7,12 @@
   <link rel="stylesheet" href="smait-core.css">
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    :root {
-  --accent1: #ff6a3d;
-  --accent2: #3b82f6;
-  --accent3: #10b981;
-  --accent4: #f59e0b;
-  --dark: #0d1117;
-  --light: #fafafa;
-  --text-dark: #222;
-  --text-light: #555;
+:root {
+  --accent1: #ff6a3d; /* primary accent */
+  --accent2: #3b82f6; /* secondary accent */
+  --dark: #1a1a1a;
+  --light: #f9f9f9;
+  --muted: #555;
 }
 
 * {
@@ -27,49 +24,46 @@
 }
 
 body {
-  background: #fff;
-  color: var(--text-dark);
+  background: var(--light);
+  color: var(--dark);
 }
 
 /* =========================
    HEADER
 ========================= */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  z-index: 100;
-  padding: 12px 30px;
+header.flex.container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 header .logo {
   display: flex;
   align-items: center;
+  gap: 10px;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: var(--accent1);
 }
 
-header .logo img {
-  width: 40px;
-  margin-right: 10px;
-}
-
-nav a {
-  margin: 0 12px;
-  color: var(--text-dark);
+header nav a {
+  margin-left: 20px;
   text-decoration: none;
+  color: var(--dark);
   font-weight: 600;
-  transition: color 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.3s ease;
 }
 
-nav a:hover {
+header nav a:hover {
   color: var(--accent1);
 }
 
@@ -77,43 +71,46 @@ nav a:hover {
    HERO
 ========================= */
 .hero {
+  position: relative;
   height: 90vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  position: relative;
+  align-items: center;
+  background: url('hero.jpg') center/cover no-repeat;
   overflow: hidden;
-  background: url('hero-bg.jpg') center/cover no-repeat;
 }
 
 .hero-overlay {
   position: relative;
   z-index: 2;
   text-align: center;
-  color: white;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 40px 20px;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 40px 30px;
   border-radius: 12px;
+  color: white;
   animation: fadeSlide 1.2s ease;
 }
 
 .hero-overlay h1 {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   margin-bottom: 12px;
 }
 
 .hero-overlay p {
-  font-size: 1.1rem;
-  margin-bottom: 24px;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
 }
 
 .hero-overlay .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   background: var(--accent1);
-  border: none;
-  padding: 12px 28px;
   color: white;
-  border-radius: 8px;
+  border: none;
+  padding: 12px 24px;
   font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
@@ -128,69 +125,105 @@ nav a:hover {
 }
 
 /* =========================
-   SECTION HEADERS
+   SECTIONS
 ========================= */
+section.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+/* Section headers */
 section h2 {
   font-size: 2rem;
-  margin-bottom: 10px;
-  text-align: center;
+  margin-bottom: 12px;
 }
 
 section p.text-muted {
-  color: var(--text-light);
-  margin-bottom: 24px;
-  text-align: center;
+  color: var(--muted);
+  margin-bottom: 30px;
 }
 
 /* =========================
-   GRID & CARDS
+   GRID CARDS
 ========================= */
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 100px 0 50px;
-}
-
 .grid {
   display: grid;
-  gap: 20px;
+  gap: 24px;
 }
 
 .grid-3 {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
 .card {
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+  padding: 24px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
 }
 
 .card h3 {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   margin-bottom: 8px;
 }
 
 .card p {
-  color: var(--text-light);
-  margin-bottom: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
 }
 
-.card .btn {
-  margin-top: 10px;
+.card button.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: var(--accent2);
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.card button.btn:hover {
+  background: #2563eb;
 }
 
 /* =========================
-   MODAL
+   VOLUNTEER BUTTON
+========================= */
+#volunteer .btn {
+  padding: 12px 24px;
+  background: var(--accent1);
+}
+
+#volunteer .btn:hover {
+  background: #ff875b;
+}
+
+/* =========================
+   DONATE SECTION
+========================= */
+#donate a.btn {
+  padding: 12px 24px;
+  background: var(--accent1);
+}
+
+#donate a.btn:hover {
+  background: #ff875b;
+}
+
+/* =========================
+   MODALS
 ========================= */
 .modal {
   position: fixed;
@@ -207,21 +240,31 @@ section p.text-muted {
   border-radius: 16px;
   padding: 30px;
   width: 90%;
-  max-width: 600px;
-  text-align: left;
+  max-width: 700px;
   position: relative;
   animation: fadeIn 0.3s ease-in-out;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+.modal-content h2 {
+  margin-bottom: 16px;
 }
 
-.modal-content img {
-  width: 100%;
-  border-radius: 12px;
-  margin: 20px 0;
+.modal-content p {
+  margin-bottom: 20px;
+}
+
+.modal-content button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent1);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background: #ff875b;
 }
 
 .close-btn {
@@ -230,56 +273,43 @@ section p.text-muted {
   right: 16px;
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 28px;
   cursor: pointer;
 }
 
-.modal-content button {
-  background: var(--accent1);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.modal-content button:hover {
-  background: #ff875b;
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 /* =========================
-   CONTACT FORM
+   CONTACT FORM MODAL
 ========================= */
 .contact-modal-content {
   display: flex;
   flex-wrap: wrap;
-  max-width: 800px;
+  gap: 16px;
+  max-width: 850px;
 }
 
-.contact-right {
+.contact-modal-content .contact-right {
   flex: 1;
-  min-width: 250px;
-  padding: 30px;
+  min-width: 280px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 20px;
 }
 
-.contact-right h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.contact-right .avatar {
+.contact-modal-content .avatar {
   width: 80px;
   border-radius: 50%;
   margin: 0 auto 20px;
 }
 
 .contact-input {
-  margin-bottom: 16px;
   position: relative;
+  margin-bottom: 16px;
 }
 
 .contact-input i {
@@ -287,89 +317,39 @@ section p.text-muted {
   top: 50%;
   left: 10px;
   transform: translateY(-50%);
-  color: var(--accent2);
+  color: var(--muted);
 }
 
 .contact-input input,
 .contact-input textarea {
-  width: 100%;
   padding: 12px 12px 12px 36px;
+  width: 100%;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
 
-/* Phone input */
-.contact-phone .country-code {
-  font-size: 1.1rem;
-  margin-right: 6px;
-}
-
-/* =========================
-   BUTTONS
-========================= */
-.btn {
-  background: var(--accent1);
-  color: white;
-  border: none;
-  padding: 12px 28px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.btn:hover {
-  background: #ff875b;
-}
-
-/* =========================
-   DONATE SECTION
-========================= */
-#donate a.btn {
-  display: inline-block;
-  text-decoration: none;
-  margin-top: 12px;
-}
-
-/* =========================
-   FOOTER
-========================= */
-footer {
-  background: var(--dark);
-  color: white;
-  padding: 60px 20px;
-  text-align: center;
-}
-
-footer .socials {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-footer a {
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-footer a:hover {
-  color: var(--accent1);
+.contact-input.contact-phone span.country-code {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 @media (max-width: 768px) {
-  .hero-overlay h1 {
-    font-size: 1.8rem;
+  .hero-overlay {
+    padding: 30px 15px;
   }
-  .hero-overlay p {
-    font-size: 1rem;
-  }
+
   .grid-3 {
     grid-template-columns: 1fr;
+  }
+
+  .contact-modal-content {
+    flex-direction: column;
+    padding: 15px;
   }
 }
 
@@ -378,79 +358,98 @@ footer a:hover {
 <body>
 
   <!-- HEADER -->
-  <header class="flex container">
-    <div class="logo">
-      <img src="logo.png" alt="Golden Gatherings" width="40">
-      <span>Golden Gatherings</span>
+<header class="flex container">
+  <div class="logo">
+    <img src="logo.png" alt="Golden Gatherings" width="40">
+    <span>Golden Gatherings</span>
+  </div>
+  <nav>
+    <a href="#events"><i data-feather="calendar"></i> Events</a>
+    <a href="#volunteer"><i data-feather="users"></i> Volunteer</a>
+    <a href="#donate"><i data-feather="heart"></i> Donate</a>
+    <a href="#contact"><i data-feather="mail"></i> Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-overlay text-center">
+    <h1>Tea Parties for the Elderly</h1>
+    <p>Connecting generations with joy, tea, and laughter.</p>
+    <button class="btn" onclick="scrollToSection('events')">
+      <i data-feather="arrow-down"></i> View Upcoming Events
+    </button>
+  </div>
+</section>
+
+<!-- UPCOMING EVENTS -->
+<section id="events" class="container mt-4 text-center">
+  <h2><i data-feather="calendar"></i> Upcoming Tea Parties</h2>
+  <p class="text-muted">Join us for fun, conversation, and tea!</p>
+  <div class="grid grid-3 mt-4">
+    <!-- Event Cards -->
+    <div class="card">
+      <h3>Spring Tea Party</h3>
+      <p><i data-feather="calendar"></i> Date: April 12, 2026</p>
+      <p><i data-feather="map-pin"></i> Location: Community Hall, Downtown</p>
+      <button class="btn" onclick="openEventModal('Spring Tea Party')">
+        <i data-feather="user-plus"></i> Register
+      </button>
     </div>
-    <nav>
-      <a href="#events">Events</a>
-      <a href="#volunteer">Volunteer</a>
-      <a href="#donate">Donate</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-overlay text-center">
-      <h1>Tea Parties for the Elderly</h1>
-      <p>Connecting generations with joy, tea, and laughter.</p>
-      <button class="btn" onclick="scrollToSection('events')">View Upcoming Events</button>
+    <div class="card">
+      <h3>Summer Tea Party</h3>
+      <p><i data-feather="calendar"></i> Date: July 20, 2026</p>
+      <p><i data-feather="map-pin"></i> Location: Botanical Gardens</p>
+      <button class="btn" onclick="openEventModal('Summer Tea Party')">
+        <i data-feather="user-plus"></i> Register
+      </button>
     </div>
-  </section>
-
-  <!-- UPCOMING EVENTS -->
-  <section id="events" class="container mt-4 text-center">
-    <h2>Upcoming Tea Parties</h2>
-    <p class="text-muted">Join us for fun, conversation, and tea!</p>
-    <div class="grid grid-3 mt-4">
-      <!-- Event Cards -->
-      <div class="card">
-        <h3>Spring Tea Party</h3>
-        <p>Date: April 12, 2026</p>
-        <p>Location: Community Hall, Downtown</p>
-        <button class="btn" onclick="openEventModal('Spring Tea Party')">Register</button>
-      </div>
-      <div class="card">
-        <h3>Summer Tea Party</h3>
-        <p>Date: July 20, 2026</p>
-        <p>Location: Botanical Gardens</p>
-        <button class="btn" onclick="openEventModal('Summer Tea Party')">Register</button>
-      </div>
-      <div class="card">
-        <h3>Autumn Tea Party</h3>
-        <p>Date: October 15, 2026</p>
-        <p>Location: Riverside Community Center</p>
-        <button class="btn" onclick="openEventModal('Autumn Tea Party')">Register</button>
-      </div>
+    <div class="card">
+      <h3>Autumn Tea Party</h3>
+      <p><i data-feather="calendar"></i> Date: October 15, 2026</p>
+      <p><i data-feather="map-pin"></i> Location: Riverside Community Center</p>
+      <button class="btn" onclick="openEventModal('Autumn Tea Party')">
+        <i data-feather="user-plus"></i> Register
+      </button>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- VOLUNTEER SIGNUP -->
-  <section id="volunteer" class="container mt-4 text-center">
-    <h2>Become a Volunteer</h2>
-    <p class="text-muted">Help us make every event memorable.</p>
-    <button class="btn" onclick="openVolunteerModal()">Sign Up</button>
-  </section>
+<!-- VOLUNTEER SIGNUP -->
+<section id="volunteer" class="container mt-4 text-center">
+  <h2><i data-feather="users"></i> Become a Volunteer</h2>
+  <p class="text-muted">Help us make every event memorable.</p>
+  <button class="btn" onclick="openVolunteerModal()">
+    <i data-feather="user-check"></i> Sign Up
+  </button>
+</section>
 
-  <!-- DONATE / GO-FUND-ME -->
-  <section id="donate" class="container mt-4 text-center">
-    <h2>Support Our Cause</h2>
-    <p class="text-muted">Your donations help us host more tea parties.</p>
-    <a href="https://www.gofundme.com/" target="_blank" class="btn">Donate via GoFundMe</a>
-  </section>
+<!-- DONATE / GO-FUND-ME -->
+<section id="donate" class="container mt-4 text-center">
+  <h2><i data-feather="heart"></i> Support Our Cause</h2>
+  <p class="text-muted">Your donations help us host more tea parties.</p>
+  <a href="https://www.gofundme.com/" target="_blank" class="btn">
+    <i data-feather="dollar-sign"></i> Donate via GoFundMe
+  </a>
+</section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="container mt-4 text-center">
-    <h2>Contact Us</h2>
-    <p class="text-muted">Questions? Suggestions? Get in touch!</p>
-    <button class="btn" onclick="openContactModal()">Contact Form</button>
-  </section>
+<!-- CONTACT -->
+<section id="contact" class="container mt-4 text-center">
+  <h2><i data-feather="mail"></i> Contact Us</h2>
+  <p class="text-muted">Questions? Suggestions? Get in touch!</p>
+  <button class="btn" onclick="openContactModal()">
+    <i data-feather="message-circle"></i> Contact Form
+  </button>
+</section>
+
+<script>
+  feather.replace(); // Activate all feather icons
+</script>
+
 
   <!-- FOOTER -->
   <footer class="mt-4 text-center">
-    <p>© 2026 Golden Gatherings. All rights reserved.</p>
+    <p>© 2025 Golden Gatherings. All rights reserved.</p>
     <div class="socials flex justify-center gap-4 mt-2">
       <a href="#"><i data-feather="facebook"></i></a>
       <a href="#"><i data-feather="instagram"></i></a>
@@ -459,60 +458,320 @@ footer a:hover {
   </footer>
 
   <script src="smait-core.js"></script>
-  <script>
-    feather.replace();
+ <script>
+  // =========================
+  // FEATHER ICONS
+  // =========================
+  feather.replace();
 
-    function openEventModal(eventName) {
-      const modal = document.createElement('div');
-      modal.className = 'modal active';
-      modal.innerHTML = `
-        <div class="modal-content">
-          <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
-          <h2>Register for ${eventName}</h2>
-          <form id="eventForm">
+  // =========================
+  // MODAL UTILITY
+  // =========================
+  function closeModal(modal) {
+    modal.remove();
+  }
+
+  function createModal(innerHTML) {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.style.display = 'flex';
+    modal.innerHTML = innerHTML;
+
+    document.body.appendChild(modal);
+
+    feather.replace(); // apply feather icons
+
+    modal.addEventListener('click', e => {
+      if (e.target === modal) modal.remove();
+    });
+
+    return modal;
+  }
+
+  // =========================
+  // HERO SLIDESHOW
+  // =========================
+  const slides = document.querySelectorAll('.hero-slide');
+  const dotsContainer = document.querySelector('.dots');
+
+  if (slides.length && dotsContainer) {
+    slides.forEach((_, i) => {
+      const dot = document.createElement('span');
+      if (i === 0) dot.classList.add('active');
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = dotsContainer.querySelectorAll('span');
+    let currentSlide = 0;
+
+    function changeSlide(next = true) {
+      slides[currentSlide].classList.remove('active');
+      dots[currentSlide].classList.remove('active');
+      currentSlide = next
+        ? (currentSlide + 1) % slides.length
+        : (currentSlide - 1 + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+    }
+
+    setInterval(() => changeSlide(true), 6000);
+  }
+
+  // =========================
+  // SERVICE MODAL LOGIC
+  // =========================
+  function openServiceModal(id) {
+    const card = document.querySelector(`[data-modal="${id}"]`);
+    if (!card) return;
+
+    const modalHTML = `
+      <div class="modal-content">
+        <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
+        <h2>${card.querySelector('h3').innerText}</h2>
+        <img src="${card.querySelector('img').src}" alt="${card.querySelector('h3').innerText}">
+        <p>${card.querySelector('p').innerText}</p>
+        <div class="extra-info">
+          <p>Here you can add more detailed information about this service, including features, benefits, pricing options, or customer success stories.</p>
+        </div>
+        <button onclick="openContactModal()">Apply for Quote</button>
+      </div>
+    `;
+    createModal(modalHTML);
+  }
+
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('click', () => openServiceModal(card.dataset.modal));
+  });
+
+  // =========================
+  // CONTACT FORM MODAL
+  // =========================
+  function openContactModal() {
+    const modalHTML = `
+      <div class="contact-modal-content">
+        <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
+        <div class="contact-left" style="background:url('contact-image.jpg') center/cover; border-radius:12px;"></div>
+        <div class="contact-right">
+          <img src="avatar.png" class="avatar" alt="User Avatar">
+          <h2>Contact Us</h2>
+          <form id="contactForm">
             <div class="input-group">
               <i data-feather="user"></i>
-              <input type="text" placeholder="Full Name" required>
+              <input type="text" name="name" placeholder="Full Name" required>
             </div>
             <div class="input-group">
               <i data-feather="mail"></i>
-              <input type="email" placeholder="Email Address" required>
+              <input type="email" name="email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group phone">
+              <span class="country-code">🇿🇲 +260</span>
+              <i data-feather="phone"></i>
+              <input type="tel" name="phone" placeholder="Phone Number" required>
             </div>
             <div class="input-group">
-              <i data-feather="phone"></i>
-              <input type="tel" placeholder="Phone Number" required>
+              <i data-feather="message-square"></i>
+              <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
             </div>
-            <select required>
-              <option value="">I am a:</option>
-              <option value="elderly">Elderly Participant</option>
-              <option value="volunteer">Volunteer</option>
-            </select>
-            <button type="submit" class="btn">Register</button>
+            <button type="submit">Send Message</button>
           </form>
         </div>
-      `;
-      document.body.appendChild(modal);
-      feather.replace();
-      modal.querySelector('#eventForm').addEventListener('submit', e => {
-        e.preventDefault();
-        alert(`Thank you for registering for ${eventName}!`);
-        modal.remove();
+      </div>
+    `;
+    const modal = createModal(modalHTML);
+
+    document.getElementById('contactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const phone = formData.get('phone');
+      const message = formData.get('message');
+
+      window.location.href = `mailto:organizer@example.com?subject=Contact Form Submission&body=Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0AMessage: ${message}`;
+      modal.remove();
+    });
+  }
+
+  // =========================
+  // REGISTRATION MODAL
+  // =========================
+  function openRegistrationModal(type) {
+    const modalHTML = `
+      <div class="registration-modal-content">
+        <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
+        <div class="reg-left" style="background:url('registration-image.jpg') center/cover; border-radius:12px;"></div>
+        <div class="reg-right">
+          <img src="avatar.png" class="avatar" alt="User Avatar">
+          <h2>${type} Registration</h2>
+          <form id="registrationForm">
+            <div class="input-group">
+              <i data-feather="user"></i>
+              <input type="text" name="name" placeholder="Full Name" required>
+            </div>
+            <div class="input-group">
+              <i data-feather="mail"></i>
+              <input type="email" name="email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group phone">
+              <span class="country-code">🇿🇲 +260</span>
+              <i data-feather="phone"></i>
+              <input type="tel" name="phone" placeholder="Phone Number" required>
+            </div>
+            <button type="submit">Register</button>
+          </form>
+        </div>
+      </div>
+    `;
+    const modal = createModal(modalHTML);
+
+    document.getElementById('registrationForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const phone = formData.get('phone');
+
+      window.location.href = `mailto:organizer@example.com?subject=${type} Registration&body=Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}`;
+      modal.remove();
+    });
+  }
+
+  // =========================
+  // FUNDING MODAL
+  // =========================
+  function openFundingModal() {
+    const modalHTML = `
+      <div class="funding-modal-content">
+        <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
+        <div class="fund-left" style="background:url('funding-image.jpg') center/cover; border-radius:12px;"></div>
+        <div class="fund-right">
+          <h2>Support Our Tea Parties</h2>
+          <form id="fundingForm">
+            <div class="input-group">
+              <i data-feather="user"></i>
+              <input type="text" name="name" placeholder="Full Name" required>
+            </div>
+            <div class="input-group">
+              <i data-feather="mail"></i>
+              <input type="email" name="email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group">
+              <i data-feather="credit-card"></i>
+              <input type="number" name="amount" placeholder="Donation Amount" required>
+            </div>
+            <button type="submit">Donate</button>
+          </form>
+        </div>
+      </div>
+    `;
+    const modal = createModal(modalHTML);
+
+    document.getElementById('fundingForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const amount = formData.get('amount');
+
+      window.location.href = `mailto:organizer@example.com?subject=Funding Submission&body=Name: ${name}%0D%0AEmail: ${email}%0D%0AAmount: ${amount}`;
+      modal.remove();
+    });
+  }
+
+  // =========================
+  // SCROLL HELPER
+  // =========================
+  window.scrollToSection = function(id) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // =========================
+  // PRICING CAROUSEL
+  // =========================
+  document.addEventListener("DOMContentLoaded", () => {
+    const track = document.getElementById("pricingTrack");
+    const groups = document.querySelectorAll(".pricing-group");
+    let currentIndex = 0;
+    const totalGroups = groups.length;
+
+    // Controls
+    const controls = document.createElement("div");
+    controls.className = "pricing-controls";
+    controls.innerHTML = `
+      <button id="prevPricing"><i data-feather="chevron-left"></i></button>
+      <button id="nextPricing"><i data-feather="chevron-right"></i></button>
+    `;
+    document.querySelector(".pricing-carousel").appendChild(controls);
+    feather.replace();
+
+    function showGroup(index) {
+      const offset = -index * 100;
+      track.style.transform = `translateX(${offset}%)`;
+      groups.forEach((g, i) => {
+        g.style.opacity = i === index ? "1" : "0.5";
+        g.style.transform = i === index ? "scale(1)" : "scale(0.97)";
       });
     }
 
-    function openVolunteerModal() {
-      // Similar modal structure to event registration
-      openEventModal("Volunteer Registration");
-    }
+    document.getElementById("nextPricing").addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % totalGroups;
+      showGroup(currentIndex);
+    });
 
-    function openContactModal() {
-      alert("Contact form will appear here!");
-      // You can replace this with your SMAIT core contact modal
-    }
+    document.getElementById("prevPricing").addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + totalGroups) % totalGroups;
+      showGroup(currentIndex);
+    });
 
-    function scrollToSection(id) {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-    }
-  </script>
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % totalGroups;
+      showGroup(currentIndex);
+    }, 7000);
+
+    showGroup(currentIndex);
+  });
+
+  // =========================
+  // PRICING MODAL
+  // =========================
+  function openPricingModal(serviceName) {
+    const modalHTML = `
+      <div class="modal-content pricing-modal-content">
+        <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
+        <h2>Request Quote for ${serviceName}</h2>
+        <p>Fill in the form below and our team will send you a quote for <strong>${serviceName}</strong>.</p>
+        <form id="pricingForm">
+          <div class="input-group">
+            <i data-feather="user"></i>
+            <input type="text" name="name" placeholder="Full Name" required>
+          </div>
+          <div class="input-group">
+            <i data-feather="mail"></i>
+            <input type="email" name="email" placeholder="Email Address" required>
+          </div>
+          <div class="input-group">
+            <i data-feather="phone"></i>
+            <input type="tel" name="phone" placeholder="Phone Number" required>
+          </div>
+          <textarea name="details" placeholder="Additional details or requirements" rows="4"></textarea>
+          <button type="submit">Submit Request</button>
+        </form>
+      </div>
+    `;
+    const modal = createModal(modalHTML);
+
+    document.getElementById("pricingForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const name = formData.get("name");
+      const email = formData.get("email");
+      const phone = formData.get("phone");
+
+      window.location.href = `mailto:organizer@example.com?subject=Quote Request: ${serviceName}&body=Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}`;
+      modal.remove();
+    });
+  }
+</script>
+
 </body>
 </html>
