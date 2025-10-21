@@ -419,33 +419,32 @@ section p.text-muted {
   margin: 0 auto 20px;
 }
 
-.input-group {
-  position: relative;
-  margin-bottom: 16px;
-}
-
-.input-group i {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  color: var(--muted);
-}
-
-.input-group input,
-.input-group textarea {
-  padding: 12px 12px 12px 36px;
-  width: 100%;
-  border-radius: 8px;
+.input-group.phone {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
 }
 
-.input-group.phone span.country-code {
-  position: absolute;
-  top: 50%;
-  left: 12px;
-  transform: translateY(-50%);
+.input-group.phone .country-code {
+  display: inline-block;
+  font-size: 0.9rem;
 }
+
+.input-group.phone i {
+  flex-shrink: 0;
+  color: #555;
+}
+
+.input-group.phone input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
 
 /* =========================
    FOOTER
@@ -861,10 +860,10 @@ button.btn:hover {
 // Activate feather icons
 feather.replace();
 
-   document.querySelectorAll('.register-btn').forEach(btn => {
+  document.querySelectorAll('.register-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const type = btn.dataset.event; 
-    openRegistrationModal(type);
+    openEventModal(type); // matches the defined function
   });
 });
    
